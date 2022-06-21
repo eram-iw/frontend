@@ -95,6 +95,7 @@ function Login() {
                 width="100%"
                 style={{ marginTop: 15 }}
                 onClick={subMitHandler}
+                isLoading={loading}
             >Log In!</Button>
 
             <Button
@@ -105,7 +106,6 @@ function Login() {
                     setEmail('guest@example.com')
                     setPassword('123456')
                 }}
-                isLoading={loading}
             >Get Guest User Credentials!</Button>
         </VStack>
     )
