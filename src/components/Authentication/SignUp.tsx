@@ -44,7 +44,6 @@ function SignUp() {
             })
                 .then((res) => res.json())
                 .then((data) => {
-                    console.log(data);
                     setPic(data.url.toString())
                     setLoading(false)
                 })

@@ -54,7 +54,7 @@ function Login() {
             toast({
                 title: 'Some Error Occured!!!',
                 description: err.response.data.message,
-                status: 'success',
+                status: 'warning',
                 duration: 5000,
                 isClosable: true,
                 position: 'bottom',
