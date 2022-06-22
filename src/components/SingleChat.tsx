@@ -8,6 +8,13 @@ import ProfileModal from './Authentication/miscellaneous/ProfileModal'
 import UpdateGroupChatModal from './Authentication/miscellaneous/UpdateGroupChatModal'
 import '../components/Styles.css'
 import ScrollableChat from './ScrollableChat'
+import { io, Socket } from 'socket.io-client'
+import { DefaultEventsMap } from '@socket.io/component-emitter'
+import Lottie from 'react-lottie'
+import animationData from "../animations/typing.json";
+
+const ENDPOINT = "http://localhost:5000"
+var socket: any, selectedChatCompare: any;
 
 function SingleChat({ fetchAgain, setFetchAgain }: any) {
 
@@ -16,46 +23,79 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
     const [newMessage, setNewMessage] = useState('')
     const { user, selectedChat, setSelectedChat } = ChatState()
 
+    const [socketConnected, setSocketConnected] = useState(false)
+    const [typing, setTyping] = useState(false)
+    const [isTyping, setIsTyping] = useState(false)
+
     const toast = useToast()
 
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: animationData,
+        rendererSettings: {
+            preserveAspectRatio: "xMidYMid slice",
+        },
+    };
 
 
-    const sendMessage = async (e: any) => {
-        if (e.key === "Enter" && newMessage) {
+    useEffect(() => {
+        socket = io(ENDPOINT)
+        socket.emit('setup', user)
+        socket.on('connected', () => setSocketConnected(true))
+        socket.on("typing", () => setIsTyping(true));
+        socket.on("stop typing", () => setIsTyping(false));
+    }, [])
+
+    useEffect(() => {
+        fetchMessages()
+        selectedChatCompare = selectedChat
+    }, [selectedChat])
+
+
+    useEffect(() => {
+        socket.on('message recieved', (newMessageRecieved: any) => {
+            if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
+                // Give Notifications
+            } else {
+                setMessages([...messages, newMessageRecieved])
+            }
+        })
+    })
+
+    const sendMessage = async (event: any) => {
+        if (event.key === "Enter" && newMessage) {
+            socket.emit("stop typing", selectedChat._id);
             try {
                 const config = {
                     headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${user.token}`,
-                    }
-                }
-
-                setNewMessage('')
-
-                const { data } = await axios.post("/api/message", {
-                    content: newMessage,
-                    chatId: selectedChat._id
-                }
-                    ,
+                        "Content-type": "application/json",
+                        Authorization: `Bearer ${user.token}`,
+                    },
+                };
+                setNewMessage("");
+                const { data } = await axios.post(
+                    "/api/message",
+                    {
+                        content: newMessage,
+                        chatId: selectedChat,
+                    },
                     config
-                )
-                console.log(data);
-
-                setMessages([...messages, data])
-            } catch (error: any) {
+                );
+                socket.emit("new message", data);
+                setMessages([...messages, data]);
+            } catch (error) {
                 toast({
-                    title: "Error Occurred!!!",
-                    description: 'Failed to send the Message!',
+                    title: "Error Occured!",
+                    description: "Failed to send the Message",
                     status: "error",
-                    duration: 3000,
+                    duration: 5000,
                     isClosable: true,
                     position: "bottom",
                 });
             }
         }
-    }
-
-
+    };
 
     const fetchMessages = async () => {
         if (!selectedChat) return
@@ -69,9 +109,10 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
             const { data } = await axios.get(`/api/message/${selectedChat._id}`,
                 config
             )
-            console.log(messages);
             setMessages(data)
             setLoading(false)
+
+            socket.emit('join chat', selectedChat._id)
         } catch (error: any) {
             toast({
                 title: "Error Occurred!!!",
@@ -84,14 +125,26 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
         }
     }
 
-    useEffect(() => {
-        fetchMessages()
-    }, [selectedChat])
+    const typingHandler = (e:any) => {
+        setNewMessage(e.target.value);
 
-    const typingHandler = (e: any) => {
-        setNewMessage(e.target.value)
-        // Typing Indicator Logic
-    }
+        if (!socketConnected) return;
+
+        if (!typing) {
+            setTyping(true);
+            socket.emit("typing", selectedChat._id);
+        }
+        let lastTypingTime = new Date().getTime();
+        var timerLength = 3000;
+        setTimeout(() => {
+            var timeNow = new Date().getTime();
+            var timeDiff = timeNow - lastTypingTime;
+            if (timeDiff >= timerLength && typing) {
+                socket.emit("stop typing", selectedChat._id);
+                setTyping(false);
+            }
+        }, timerLength);
+    };
 
     return (
         <>
@@ -151,17 +204,23 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
                             />
                             :
                             <div className='messages'>
-                                <ScrollableChat messages={messages}/>
+                                <ScrollableChat messages={messages} />
                             </div>
                         }
-                        <FormControl onKeyDown={sendMessage} isRequired mt={3}>
+                        <FormControl onKeyDown={sendMessage} isRequired mt={3}><>
+                            {isTyping ? <div>
+                                <Lottie
+                                    options={defaultOptions}
+                                    width={70}
+                                    style={{ marginBottom: 15, marginLeft: 0 }}
+                            /></div> : null}
                             <Input
                                 variant='filled'
                                 bg="#e0e0e0"
                                 placeholder="Enter a Message..."
                                 onChange={typingHandler}
                                 value={newMessage}
-                            />
+                            /></>
                         </FormControl>
                     </Box>
                 </>
