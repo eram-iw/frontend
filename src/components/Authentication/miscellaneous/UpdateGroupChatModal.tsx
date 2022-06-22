@@ -6,7 +6,7 @@ import { ChatState } from '../../../context/chatProvider'
 import UserBadgeItem from '../UserAvatar/UserBadgeItem'
 import UserListItem from '../UserAvatar/UserListItem'
 
-function UpdateGroupChatModal({ fetchAgain, setFetchAgain }: any) {
+function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any) {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [groupChatName, setGroupChatName] = useState('')
     const [selectedUsers, setSelectedUsers] = useState([])
@@ -47,6 +47,7 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain }: any) {
 
             user1._id === user._id ? setSelectedChat() : setSelectedChat(data)
             setFetchAgain(!fetchAgain)
+            fetchMessages();
             setLoading(false)
         } catch (error) {
             toast({
@@ -208,8 +209,8 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain }: any) {
                                 value={groupChatName}
                                 onChange={(e: any) => setGroupChatName(e.target.value)}
                             />
+                            
                         </FormControl>
-
                         <Button
                             variant='solid'
                             ml={1}
