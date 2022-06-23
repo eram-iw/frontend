@@ -9,7 +9,6 @@ import UpdateGroupChatModal from './Authentication/miscellaneous/UpdateGroupChat
 import '../components/Styles.css'
 import ScrollableChat from './ScrollableChat'
 import { io, Socket } from 'socket.io-client'
-import { DefaultEventsMap } from '@socket.io/component-emitter'
 import Lottie from 'react-lottie'
 import animationData from "../animations/typing.json";
 
@@ -21,7 +20,7 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(false)
     const [newMessage, setNewMessage] = useState('')
-    const { user, selectedChat, setSelectedChat } = ChatState()
+    const { user, selectedChat, setSelectedChat, notification, setNotification } = ChatState()
 
     const [socketConnected, setSocketConnected] = useState(false)
     const [typing, setTyping] = useState(false)
@@ -52,11 +51,15 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
         selectedChatCompare = selectedChat
     }, [selectedChat])
 
-
     useEffect(() => {
         socket.on('message recieved', (newMessageRecieved: any) => {
             if (!selectedChatCompare || selectedChatCompare._id !== newMessageRecieved.chat._id) {
                 // Give Notifications
+                if (!notification.includes(newMessageRecieved)) {
+                    setNotification([newMessageRecieved, ...notification])
+                    setFetchAgain(!fetchAgain)
+                }
+
             } else {
                 setMessages([...messages, newMessageRecieved])
             }
@@ -125,7 +128,7 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
         }
     }
 
-    const typingHandler = (e:any) => {
+    const typingHandler = (e: any) => {
         setNewMessage(e.target.value);
 
         if (!socketConnected) return;
@@ -213,7 +216,7 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
                                     options={defaultOptions}
                                     width={70}
                                     style={{ marginBottom: 15, marginLeft: 0 }}
-                            /></div> : null}
+                                /></div> : null}
                             <Input
                                 variant='filled'
                                 bg="#e0e0e0"

@@ -6,15 +6,15 @@ function UserListItem({user, handleFunction }: any) {
         <Box
             onClick={()=>handleFunction()}
             cursor='pointer'
-            bg='#e8e8e8'
+            bg='RGBA(0, 0, 0, 0.80)'
+            color='RGBA(255, 255, 255, 0.70)'
             _hover={{
-                background: '#38B2AC',
+                background: '#285E61',
                 color: 'white'
             }}
             w='100%'
             display='flex'
             alignItems='center'
-            color='black'
             px={3}
         >
             <Avatar

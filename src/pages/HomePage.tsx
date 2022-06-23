@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Box, Text, Tabs, Tab, TabList, TabPanel, TabPanels } from '@chakra-ui/react'
 import Login from '../components/Authentication/Login'
 import SignUp from '../components/Authentication/SignUp'
@@ -15,24 +15,25 @@ function HomePage() {
     }
   }, [navigate])
   return (
-    <Container maxW='xl' centerContent>
+    <Container maxW='xl' centerContent justifyContent='center'>
       <Box
         display="flex"
         justifyContent="center"
         p={3}
-        bg={"white"}
+        bg="#1a1a1a"
         w="100%"
         m="40px 0 15px 0"
         borderRadius="lg"
+        borderColor='#3a3838'
         borderWidth="1px"
       >
-        <Text fontSize='4xl' fontFamily="Work Sans" color="black">Chat Application</Text>
+        <Text fontSize='4xl' fontFamily="Work Sans" color="#c0c9cd">Chat Application</Text>
       </Box>
-      <Box bg="white" w="100%" p={4} borderRadius="lg" borderWidth="1px" color="black">
+      <Box bg="#1a1a1a" w="100%" p={4} borderRadius="lg" borderWidth="1px" color="#c0c9cd" borderColor='#3a3838'>
         <Tabs variant='soft-rounded'>
           <TabList mb="1em">
-            <Tab width='50%'>Login</Tab>
-            <Tab width='50%'>Sign Up</Tab>
+            <Tab _selected={{ color: '#E2E8F0', bg: '#444343' }} width='50%'>Login</Tab>
+            <Tab _selected={{ color: '#E2E8F0', bg: '#444343' }} width='50%'>Sign Up</Tab>
           </TabList>
           <TabPanels>
             <TabPanel><Login/></TabPanel>

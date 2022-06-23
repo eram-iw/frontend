@@ -18,7 +18,7 @@ function ProfileModal(props: ProfileModalProps) {
             ) : (
                 <IconButton display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} aria-label={''} />
             )}
-            <Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal  size='lg' isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent h='410px'>
                     <ModalHeader

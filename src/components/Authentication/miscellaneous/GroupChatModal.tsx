@@ -131,7 +131,7 @@ function GroupChatModal({ children }: any) {
                     >
                         <>
                             <FormControl>
-                                <Input placeholder='Name of Chat' mb={3} value={groupChatName} onChange={(e: any) => setGroupChatName(e.target.value)} />
+                                <Input placeholder='Name of Chat' mb={3}  onChange={(e: any) => setGroupChatName(e.target.value)} />
                             </FormControl>
                             <FormControl>
                                 <Input placeholder='Add Users' mb={1} onChange={(e: any) => handleSearch(e.target.value)} />

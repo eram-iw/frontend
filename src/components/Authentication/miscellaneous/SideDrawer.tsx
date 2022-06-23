@@ -11,6 +11,12 @@ import { useToast } from '@chakra-ui/react'
 import axios from 'axios';
 import ChatLoading from '../../ChatLoading';
 import UserListItem from '../UserAvatar/UserListItem';
+import '../../../App.css'
+import { getSender } from '../../../config/chatLogics';
+//@ts-ignore
+import NotificationBadge from 'react-notification-badge';
+//@ts-ignore
+import { Effect } from 'react-notification-badge';
 
 function SideDrawer() {
     const [search, setSearch] = useState('')
@@ -18,7 +24,7 @@ function SideDrawer() {
     const [loading, setLoading] = useState(false)
     const [loadingChat, setLoadingChat] = useState(false)
 
-    const { user, setUser, selectedChat, setSelectedChat, chats, setChats } = ChatState()
+    const { user, setSelectedChat, chats, setChats, notification, setNotification } = ChatState()
 
 
     const navigate = useNavigate()
@@ -100,10 +106,10 @@ function SideDrawer() {
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                bg="white"
+                color='gray.300'
+                _hover={{ color: "#1a1a1a" }}
                 w="100%"
-                p="5px 10px 5px 10px"
-                borderWidth="5px"
+                p="10px 10px 2px 10px"
             >
                 <Tooltip
                     label='Search Users to start Chatting'
@@ -126,18 +132,42 @@ function SideDrawer() {
                 <Text fontSize='2xl' fontFamily='Work sans'>Chat Application</Text>
                 <div>
                     <Menu>
-                        <MenuButton p={1}>
+                        <MenuButton p={1} _hover={{ color: 'red.100' }}>
+                            <NotificationBadge
+                            count={notification.length}
+                            effect={Effect.SCALE}
+                            />
                             <BellIcon fontSize='2xl' m={1} />
                         </MenuButton>
+                        <MenuList pl={3}>
+                            <>
+                                {!notification.length && 'No new Messages'}
+                                {notification.map((notif: any) => {
+                                    return (
+                                        <MenuItem
+                                        onClick={()=>{
+                                            setSelectedChat(notif.chat)
+                                            setNotification(notification.filter((n:any)=>n!== notif))
+                                        }}
+                                            key={notif._id}>
+                                            {notif.chat.isGroupChat ?
+                                                `New Message in ${notif.chat.chatName}`
+                                                :
+                                                `New Message from ${getSender(user, notif.chat.users)}`}
+                                        </MenuItem>
+                                    )
+                                })}
+                            </>
+                        </MenuList>
                     </Menu>
-                    <Menu>
-                        <MenuButton
+                    <Menu >
+                        <MenuButton bg='RGBA(0, 0, 0, 0.64)' _hover={{ color: 'red.100' }}
                             as={Button}
                             rightIcon={<ChevronDownIcon />}
                         >
                             <Avatar size='sm' cursor='pointer' name={user.name} src={user.pic} />
                         </MenuButton>
-                        <MenuList>
+                        <MenuList >
                             <ProfileModal user={user}>
                                 <MenuItem>My Profile</MenuItem>
                             </ProfileModal>
@@ -151,17 +181,21 @@ function SideDrawer() {
             <Drawer placement='left' onClose={onClose} isOpen={isOpen}>
                 <DrawerOverlay />
                 <DrawerContent>
-                    <DrawerHeader borderBottomWidth='1px'> Search Users</DrawerHeader>
-                    <DrawerBody>
+                    <DrawerHeader borderBottomWidth='1px' bg='black' color='gray.300'> Search Users</DrawerHeader>
+                    <DrawerBody bg='gray.900' color='gray.300'>
                         <>
-                            <Box display='flex' pb={2}>
+                            <Box display='flex' pb={2} >
                                 <Input
+                                    borderColor='#3a3838'
                                     placeholder='Seach by email or name'
                                     mr={2}
                                     value={search}
                                     onChange={(e) => setSearch(e.target.value)}
                                 />
-                                <Button onClick={handleSearch}>Go</Button>
+                                <Button colorScheme="gray"
+                                    _hover={{ bg: 'gray.900', color: 'white' }}
+                                    color='#444343'
+                                    onClick={handleSearch}>Go</Button>
                             </Box>
                             {loading ? (
                                 <ChatLoading />
@@ -175,7 +209,7 @@ function SideDrawer() {
                                     />
                                 })
                             )}
-                            {loadingChat && <Spinner ml="auto" display='flex'/>}
+                            {loadingChat && <Spinner ml="auto" display='flex' />}
                         </>
                     </DrawerBody>
                 </DrawerContent>

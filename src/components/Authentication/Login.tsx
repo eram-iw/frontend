@@ -69,6 +69,7 @@ function Login() {
             <FormControl id='email' isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
+                    borderColor='#3a3838'
                     value={email}
                     placeholder='Enter Your Email'
                     onChange={(e) => setEmail(e.target.value)}
@@ -78,12 +79,18 @@ function Login() {
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                     <Input
+                        borderColor='#3a3838'
                         value={password}
                         type='password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
-                        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                        <Button
+                            background='#444343'
+                            h="1.75rem"
+                            _hover={{ color: '#444343', bg: 'white' }}
+                            size="sm"
+                            onClick={() => setShow(!show)}>
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -91,7 +98,9 @@ function Login() {
             </FormControl>
 
             <Button
-                colorScheme="blue"
+                colorScheme="gray"
+                _hover={{ bg: '#444343', color: 'white' }}
+                color='#444343'
                 width="100%"
                 style={{ marginTop: 15 }}
                 onClick={subMitHandler}
@@ -100,7 +109,9 @@ function Login() {
 
             <Button
                 variant="solid"
-                colorScheme="red"
+                color='white'
+                background='#444343'
+                _hover={{ color: '#444343', bg: 'white' }}
                 width="100%"
                 onClick={() => {
                     setEmail('guest@example.com')

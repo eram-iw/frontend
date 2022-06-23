@@ -106,7 +106,7 @@ function SignUp() {
             localStorage.setItem('userInfo', JSON.stringify(data))
             setLoading(false)
             navigate('/chats')
-        } catch (err:any) {
+        } catch (err: any) {
             toast({
                 title: 'Some Error Occured!!!',
                 description: err.response.data.message,
@@ -123,6 +123,7 @@ function SignUp() {
             <FormControl id='first-name' isRequired>
                 <FormLabel>Name</FormLabel>
                 <Input
+                    borderColor='#3a3838'
                     value={name}
                     placeholder='Enter Your Name'
                     onChange={(e) => setName(e.target.value)}
@@ -131,6 +132,7 @@ function SignUp() {
             <FormControl id='signupemail' isRequired>
                 <FormLabel>Email</FormLabel>
                 <Input
+                    borderColor='#3a3838'
                     value={email}
                     placeholder='Enter Your Email'
                     onChange={(e) => setEmail(e.target.value)}
@@ -140,12 +142,19 @@ function SignUp() {
                 <FormLabel>Password</FormLabel>
                 <InputGroup>
                     <Input
+                        borderColor='#3a3838'
                         value={password}
                         type='password'
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
-                        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                        <Button
+                            colorScheme="gray"
+                            _hover={{ bg: '#444343', color: 'white' }}
+                            color='#444343'
+                            h="1.75rem"
+                            size="sm"
+                            onClick={() => setShow(!show)}>
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -155,12 +164,16 @@ function SignUp() {
                 <FormLabel>Confirm Password</FormLabel>
                 <InputGroup>
                     <Input
+                        borderColor='#3a3838'
                         value={confirmPassword}
                         type='password'
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
-                        <Button h="1.75rem" size="sm" onClick={() => setShow(!show)}>
+                        <Button colorScheme="gray"
+                            _hover={{ bg: '#444343', color: 'white' }}
+                            color='#444343' 
+                            h="1.75rem" size="sm" onClick={() => setShow(!show)}>
                             {show ? "Hide" : "Show"}
                         </Button>
                     </InputRightElement>
@@ -171,6 +184,7 @@ function SignUp() {
                 <FormLabel>Upload Your Picture</FormLabel>
 
                 <Input
+                    borderColor='#3a3838'
                     type='file'
                     p={1.5}
                     accept="image/*"
@@ -178,7 +192,9 @@ function SignUp() {
                 />
             </FormControl>
             <Button
-                colorScheme="blue"
+                colorScheme="gray"
+                _hover={{ bg: '#444343', color: 'white' }}
+                color='#444343'
                 width="100%"
                 style={{ marginTop: 15 }}
                 onClick={subMitHandler}

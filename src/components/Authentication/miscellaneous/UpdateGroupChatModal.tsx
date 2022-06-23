@@ -213,13 +213,14 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                         </FormControl>
                         <Button
                             variant='solid'
+                            marginLeft='44%'
                             ml={1}
                             mb={3}
                             colorScheme='teal'
                             isLoading={renameLoading}
                             onClick={handleRename}
                         >
-                            Update
+                            Update the Name of the Group
                         </Button>
                         <FormControl>
                             <Input
@@ -244,7 +245,7 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='red' onClick={() => handleRemove(user)}>
+                        <Button marginBottom='12%' position='fixed' colorScheme='red' onClick={() => handleRemove(user)}>
                             Leave Group
                         </Button>
                     </ModalFooter>
