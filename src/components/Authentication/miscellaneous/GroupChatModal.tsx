@@ -126,7 +126,7 @@ function GroupChatModal({ children }: any) {
                         color='gray.100'
                     >Create Group Chat
                     </ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton color='white' />
                     <ModalBody
                         display='flex'
                         flexDir='column'
