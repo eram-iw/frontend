@@ -121,6 +121,9 @@ function GroupChatModal({ children }: any) {
                         fontFamily='Work sans'
                         display='flex'
                         justifyContent='center'
+                        bg="RGBA(0, 0, 0, 0.99)"
+                        borderColor='#3a3838'
+                        color='gray.100'
                     >Create Group Chat
                     </ModalHeader>
                     <ModalCloseButton />
@@ -128,13 +131,29 @@ function GroupChatModal({ children }: any) {
                         display='flex'
                         flexDir='column'
                         alignItems='center'
+                        bg="rgba(32,33,36,255)"
+                        borderColor='#3a3838'
+                        color='gray.100'
+                        pt={8}                        
                     >
                         <>
                             <FormControl>
-                                <Input placeholder='Name of Chat' mb={3}  onChange={(e: any) => setGroupChatName(e.target.value)} />
+                                <Input
+                                    bg="rgba(32,33,36,255)"
+                                    borderColor='#3a3838'
+                                    color='white'
+                                    placeholder='Name of Chat'
+                                    mb={5}
+                                    onChange={(e: any) => setGroupChatName(e.target.value)} />
                             </FormControl>
                             <FormControl>
-                                <Input placeholder='Add Users' mb={1} onChange={(e: any) => handleSearch(e.target.value)} />
+                                <Input
+                                    bg="rgba(32,33,36,255)"
+                                    borderColor='#3a3838'
+                                    color='white'
+                                    placeholder='Add Users'
+                                    mb={3}
+                                    onChange={(e: any) => handleSearch(e.target.value)} />
                             </FormControl>
                             {/* selected users */}
                             <Box w='100%' display='flex' flexWrap='wrap'>
@@ -159,8 +178,8 @@ function GroupChatModal({ children }: any) {
                         </>
                     </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={handleSubmit}>
+                    <ModalFooter bg='rgba(32,33,36,255)'>
+                        <Button colorScheme='teal' bg="#2C7A7B" mb={10} mr={3} onClick={handleSubmit}>
                             Create Chat
                         </Button>
                     </ModalFooter>
