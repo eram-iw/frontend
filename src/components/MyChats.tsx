@@ -47,9 +47,10 @@ function MyChats({ fetchAgain }:any) {
       flexDir="column"
       alignItems='center'
       p={3}
-      bg="white"
+      bg="rgba(32,33,36,255)"
       w={{ base: "100%", md: "31%" }}
       borderRadius='lg'
+      borderColor='#3a3838'
       borderWidth='1px'
     >
       <Box
@@ -61,13 +62,15 @@ function MyChats({ fetchAgain }:any) {
         w='100%'
         justifyContent='space-between'
         alignItems='center'
+        color='gray.100'
       >
         My Chats
         <GroupChatModal>
           <Button
             display='flex'
+            color='gray.900'
             fontSize={{ base: "17px", md: "10px", lg: "17px" }}
-            rightIcon={<AddIcon />}
+            rightIcon={<AddIcon color='gray.900'/>}
           >
             New Group Chat
           </Button>
@@ -77,7 +80,7 @@ function MyChats({ fetchAgain }:any) {
         display="flex"
         flexDir="column"
         p={3}
-        bg="#f8f8f8"
+        bg="gray.900"
         w="100%"
         borderRadius='lg'
         overflowY='scroll'
@@ -89,8 +92,8 @@ function MyChats({ fetchAgain }:any) {
                 <Box
                   onClick={() => setSelectedChat(chat)}
                   cursor='pointer'
-                  bg={selectedChat === chat ? "#38b2ac" : "#e8e8e8"}
-                  color={selectedChat === chat ? "white" : "black"}
+                  bg={selectedChat === chat ? "#2C7A7B" : "rgb(232 232 232)"}
+                  color={selectedChat === chat ? "white" : "rgba(32,33,36,255)"}
                   px={3}
                   py={2}
                   borderRadius='lg'

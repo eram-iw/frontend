@@ -81,7 +81,7 @@ function Login() {
                     <Input
                         borderColor='#3a3838'
                         value={password}
-                        type='password'
+                        type={show ? 'text' : 'password'}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
@@ -110,8 +110,8 @@ function Login() {
             <Button
                 variant="solid"
                 color='white'
-                background='#444343'
-                _hover={{ color: '#444343', bg: 'white' }}
+                background='red.800'
+                _hover={{ bg: 'white', color: 'red.800' }}
                 width="100%"
                 onClick={() => {
                     setEmail('guest@example.com')

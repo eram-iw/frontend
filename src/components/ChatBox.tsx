@@ -11,7 +11,9 @@ function ChatBox({ fetchAgain, setFetchAgain }:any) {
       alignItems='center'
       flexDir='column'
       p={3}
-      bg="white"
+      bg="rgba(32,33,36,255)"
+      borderColor='#3a3838'
+      color='gray.100'
       w={{base:"100%",md:"68%"}}
       borderRadius="lg"
       borderWidth='1px'

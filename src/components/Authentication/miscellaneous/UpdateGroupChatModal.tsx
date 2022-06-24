@@ -176,7 +176,8 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
 
     return (
         <>
-            <IconButton display={{ display: 'flex' }} onClick={onOpen} aria-label={''} icon={<ViewIcon />} />
+            <IconButton bg='#121212' color='white'
+                _hover={{ color: 'black', bg: 'white' }} display={{ display: 'flex' }} onClick={onOpen} aria-label={''} icon={<ViewIcon />} />
 
             <Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
@@ -186,11 +187,21 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                         fontFamily='Work sans'
                         display='flex'
                         justifyContent='center'
+                        bg="RGBA(0, 0, 0, 0.99)"
+                        borderColor='#3a3838'
+                        color='gray.100'
                     >{selectedChat.chatName}
                     </ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody display="flex" flexDir="column" alignItems="center">
-                        <Box w="100%" display="flex" flexWrap="wrap" pb={3}>
+                    <ModalCloseButton color='white' />
+                    <ModalBody
+                        display="flex"
+                        flexDir="column"
+                        alignItems="center"
+                        bg="rgba(32,33,36,255)"
+                        borderColor='#3a3838'
+                        color='gray.100'
+                    >
+                        <Box w="100%" display="flex" flexWrap="wrap" pb={3} >
                             <>
                                 {selectedChat.users.map((u: any) => {
                                     return <UserBadgeItem
@@ -204,19 +215,23 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                         </Box>
                         <FormControl display='flex'>
                             <Input
+                                bg="rgba(32,33,36,255)"
+                                borderColor='#3a3838'
+                                color='white'
                                 placeholder='Name of Chat'
                                 mb={3}
                                 value={groupChatName}
                                 onChange={(e: any) => setGroupChatName(e.target.value)}
                             />
-                            
+
                         </FormControl>
                         <Button
                             variant='solid'
-                            marginLeft='44%'
-                            ml={1}
-                            mb={3}
+                            ml='44%'
+                            mb={7}
                             colorScheme='teal'
+                            bg='#2C7A7B'
+                            mt='2%'
                             isLoading={renameLoading}
                             onClick={handleRename}
                         >
@@ -224,6 +239,9 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                         </Button>
                         <FormControl>
                             <Input
+                                bg="rgba(32,33,36,255)"
+                                borderColor='#3a3838'
+                                color='white'
                                 placeholder='Add User to Group'
                                 mb={1}
                                 onChange={(e: any) => handleSearch(e.target.value)}
@@ -244,8 +262,9 @@ function UpdateGroupChatModal({ fetchAgain, setFetchAgain, fetchMessages }: any)
                         )}
                     </ModalBody>
 
-                    <ModalFooter>
-                        <Button marginBottom='12%' position='fixed' colorScheme='red' onClick={() => handleRemove(user)}>
+                    <ModalFooter bg='rgba(32,33,36,255)'>
+                        <Button marginBottom='8%' colorScheme='red'
+                            bg='red.600' onClick={() => handleRemove(user)}>
                             Leave Group
                         </Button>
                     </ModalFooter>

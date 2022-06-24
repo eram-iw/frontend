@@ -144,7 +144,7 @@ function SignUp() {
                     <Input
                         borderColor='#3a3838'
                         value={password}
-                        type='password'
+                        type={show ? 'text' : 'password'}
                         onChange={(e) => setPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
@@ -166,13 +166,13 @@ function SignUp() {
                     <Input
                         borderColor='#3a3838'
                         value={confirmPassword}
-                        type='password'
+                        type={show ? 'text' : 'password'}
                         onChange={(e) => setConfirmPassword(e.target.value)}
                     />
                     <InputRightElement width='4.4rem'>
                         <Button colorScheme="gray"
                             _hover={{ bg: '#444343', color: 'white' }}
-                            color='#444343' 
+                            color='#444343'
                             h="1.75rem" size="sm" onClick={() => setShow(!show)}>
                             {show ? "Hide" : "Show"}
                         </Button>

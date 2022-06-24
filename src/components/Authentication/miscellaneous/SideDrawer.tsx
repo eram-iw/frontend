@@ -167,12 +167,14 @@ function SideDrawer() {
                         >
                             <Avatar size='sm' cursor='pointer' name={user.name} src={user.pic} />
                         </MenuButton>
-                        <MenuList >
+                        <MenuList bg="gray.900" 
+                            borderColor='#3a3838'
+                        >
                             <ProfileModal user={user}>
-                                <MenuItem>My Profile</MenuItem>
+                                <MenuItem borderRadius='8px' ml={3} w='90%'  bg='#75767a'>My Profile</MenuItem>
                             </ProfileModal>
                             <MenuDivider />
-                            <MenuItem onClick={logOutHandler}>Log Out</MenuItem>
+                            <MenuItem borderRadius='8px' ml={3} w='90%' bg='#75767a' onClick={logOutHandler}>Log Out</MenuItem>
                         </MenuList>
                     </Menu>
                 </div>

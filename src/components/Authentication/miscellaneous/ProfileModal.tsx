@@ -16,39 +16,49 @@ function ProfileModal(props: ProfileModalProps) {
             {props.children ? (
                 <span onClick={onOpen}>{props.children}</span>
             ) : (
-                <IconButton display={{ base: "flex" }} icon={<ViewIcon />} onClick={onOpen} aria-label={''} />
+                <IconButton bg='#121212' color='white'
+                    _hover={{ color: 'black', bg: 'white' }} display={{ base: "flex" }} icon={<ViewIcon />}
+                    onClick={onOpen}
+                    aria-label={''}
+                />
             )}
-            <Modal  size='lg' isOpen={isOpen} onClose={onClose} isCentered>
+            <Modal size='lg' isOpen={isOpen} onClose={onClose} isCentered>
                 <ModalOverlay />
                 <ModalContent h='410px'>
                     <ModalHeader
-                    fontSize="40px"
-                    fontFamily='Work sans'
-                    display='flex'
-                    justifyContent='center'
+                        bg="RGBA(0, 0, 0, 0.99)"
+                        borderColor='#3a3838'
+                        color='gray.100'
+                        fontSize="40px"
+                        fontFamily='Work sans'
+                        display='flex'
+                        justifyContent='center'
                     >{props.user.name}</ModalHeader>
-                    <ModalCloseButton />
+                    <ModalCloseButton color='white'/>
                     <ModalBody
-                    display='flex'
-                    flexDir='column'
-                    alignItems='center'
-                    justifyContent='space-between'
+                        display='flex'
+                        flexDir='column'
+                        alignItems='center'
+                        justifyContent='space-between'
+                        bg="rgba(32,33,36,255)"
+                        borderColor='#3a3838'
+                        color='gray.100'
                     >
-                        <Image 
-                        borderRadius='full'
-                        boxSize='150px'
-                        src={props.user.pic}
-                        alt={props.user.name}
+                        <Image
+                            borderRadius='full'
+                            boxSize='150px'
+                            src={props.user.pic}
+                            alt={props.user.name}
                         />
                         <Text
-                        fontSize={{base:"28px", md:"30px"}}
-                        fontFamily='Work sans'>
+                            fontSize={{ base: "28px", md: "30px" }}
+                            fontFamily='Work sans'>
                             Email: {props.user.email}
                         </Text>
                     </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme='blue' mr={3} onClick={onClose}>
+                    <ModalFooter bg="rgba(32,33,36,255)">
+                        <Button bg='#2C7A7B' colorScheme='teal' mr={3} onClick={onClose}>
                             Close
                         </Button>
                     </ModalFooter>

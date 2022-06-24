@@ -12,7 +12,7 @@ import { io, Socket } from 'socket.io-client'
 import Lottie from 'react-lottie'
 import animationData from "../animations/typing.json";
 
-const ENDPOINT = "http://localhost:5000"
+const ENDPOINT = "https://chat-app-lication.herokuapp.com/"
 var socket: any, selectedChatCompare: any;
 
 function SingleChat({ fetchAgain, setFetchAgain }: any) {
@@ -164,7 +164,10 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
                         alignItems="center"
                     >
                         <IconButton
-                            display={{ base: 'flex', md: "none" }} aria-label={''}
+                            display={{ base: 'flex', md: "none" }} 
+                            bg='black'
+                            _hover={{color:'black',bg:'white'}}
+                            aria-label={''}
                             icon={<ArrowBackIcon />}
                             onClick={() => setSelectedChat('')}
                         />
@@ -190,8 +193,10 @@ function SingleChat({ fetchAgain, setFetchAgain }: any) {
                         flexDir='column'
                         justifyContent='flex-end'
                         p={3}
-                        bg="#e8e8e8"
                         w="100%"
+                        bg="rgba(32,33,36,255)"
+                        borderColor='#3a3838'
+                        color='gray.100'
                         h="100%"
                         borderRadius='lg'
                         overflowY='hidden'
