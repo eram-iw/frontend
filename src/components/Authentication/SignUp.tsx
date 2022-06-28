@@ -106,6 +106,7 @@ function SignUp() {
             localStorage.setItem('userInfo', JSON.stringify(data))
             setLoading(false)
             navigate('/chats')
+            window.location.reload();
         } catch (err: any) {
             toast({
                 title: 'Some Error Occured!!!',
